@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+	<display-name>TWDB</display-name>
+
+	<!-- il faudra copier la webapp dans le ROOT de tomcat -->
+
+	<context-param>
+		<param-name>urlbdd</param-name>
+		<param-value>http://localhost:8081/exist/rest/twdb/</param-value>
+	</context-param>
+
+	<!-- association nom_servlet nom_complet -->
+	<!-- contrôleur  -->
+	<servlet>
+		<servlet-name>CountryRequest</servlet-name>
+		<servlet-class>fr.unice.twdb.controller.CountryRequest</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AllCountryRequest</servlet-name>
+		<servlet-class>fr.unice.twdb.controller.AllCountryRequest</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchRequest</servlet-name>
+		<servlet-class>fr.unice.twdb.controller.SearchRequest</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RechercheParam</servlet-name>
+		<servlet-class>fr.unice.twdb.controller.RechercheRequest</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CityRequest</servlet-name>
+		<servlet-class>fr.unice.twdb.controller.CityRequest</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProvinceRequest</servlet-name>
+		<servlet-class>fr.unice.twdb.controller.ProvinceRequest</servlet-class>
+	</servlet>
+	
+	<!-- modèle -->
+	<servlet>
+		<servlet-name>getallpays</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereListePays</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getinfopaysbycode</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereInfosPaysByCode</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getinfopaysbyname</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereInfosPaysByName</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getinfovillebyname</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereInfosVilleByName</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getinfovillebyid</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereInfosVilleById</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getinfoprovincebyname</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereInfosProvinceByName</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getinfocontinentbyname</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereInfosContinentByName</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getinfoprovincebyid</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RecupereInfosProvinceById</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Recherche</servlet-name>
+		<servlet-class>fr.unice.twdb.model.Recherche</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>rechdyn</servlet-name>
+		<servlet-class>fr.unice.twdb.model.RechercheDynamique</servlet-class>
+	</servlet>
+	
+	<!-- vue -->
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<jsp-file>/WEB-INF/src/fr/unice/twdb/view/index.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>printallpays</servlet-name>
+		<servlet-class>fr.unice.twdb.view.AfficherAllPays</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>printinfospays</servlet-name>
+		<servlet-class>fr.unice.twdb.view.AfficherInfosPays</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>printinfosville</servlet-name>
+		<servlet-class>fr.unice.twdb.view.AfficherInfosVille</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>printinfosprovince</servlet-name>
+		<servlet-class>fr.unice.twdb.view.AfficherInfosProvince</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>printinfoscontinent</servlet-name>
+		<servlet-class>fr.unice.twdb.view.AfficherInfosContinent</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>recherche</servlet-name>
+		<jsp-file>/WEB-INF/src/fr/unice/twdb/view/rechercher.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>noresult</servlet-name>
+		<jsp-file>/WEB-INF/src/fr/unice/twdb/view/noresult.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>apropos</servlet-name>
+		<jsp-file>/WEB-INF/src/fr/unice/twdb/view/apropos.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>PrintSearchResult</servlet-name>
+		<servlet-class>fr.unice.twdb.view.AfficherResultatRecherche</servlet-class>
+	</servlet>
+	
+	
+	
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/ressources/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- mapping nom_servlet url -->
+	<!-- controller -->
+	<servlet-mapping>
+		<servlet-name>CountryRequest</servlet-name>
+		<url-pattern>/country/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CityRequest</servlet-name>
+		<url-pattern>/city/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProvinceRequest</servlet-name>
+		<url-pattern>/province/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AllCountryRequest</servlet-name>
+		<url-pattern>/country.html</url-pattern>
+		<url-pattern>/country.xml</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchRequest</servlet-name>
+		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RechercheParam</servlet-name>
+		<url-pattern>/rechercheparam</url-pattern>
+	</servlet-mapping>
+	<!-- model -->
+	<servlet-mapping>
+		<servlet-name>getallpays</servlet-name>
+		<url-pattern>/getallpays</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getinfopaysbycode</servlet-name>
+		<url-pattern>/ipbc</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getinfopaysbyname</servlet-name>
+		<url-pattern>/ipbn</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getinfocontinentbyname</servlet-name>
+		<url-pattern>/getinfocontinentbyname</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getinfoprovincebyname</servlet-name>
+		<url-pattern>/getinfoprovincebyname</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getinfoprovincebyid</servlet-name>
+		<url-pattern>/getinfoprovincebyid</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getinfovillebyname</servlet-name>
+		<url-pattern>/getinfovillebyname</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getinfovillebyid</servlet-name>
+		<url-pattern>/getinfovillebyid</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Recherche</servlet-name>
+		<url-pattern>/getSearchResult</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>rechdyn</servlet-name>
+		<url-pattern>/rechdyn</url-pattern>
+	</servlet-mapping>
+	
+	<!-- view -->
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/index.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>printallpays</servlet-name>
+		<url-pattern>/printallpays</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>printinfospays</servlet-name>
+		<url-pattern>/printinfospays</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>printinfosville</servlet-name>
+		<url-pattern>/printinfosville</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>printinfosprovince</servlet-name>
+		<url-pattern>/printinfosprovince</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>printinfoscontinent</servlet-name>
+		<url-pattern>/printinfoscontinent</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PrintSearchResult</servlet-name>
+		<url-pattern>/printSearchResult</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>recherche</servlet-name>
+		<url-pattern>/rechercher</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>noresult</servlet-name>
+		<url-pattern>/noresult</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>apropos</servlet-name>
+		<url-pattern>/apropos</url-pattern>
+	</servlet-mapping>
+
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xml</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+</web-app>

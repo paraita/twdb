@@ -1,0 +1,127 @@
+<html lang="fr">
+			<head>
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				<link rel="stylesheet" type="text/css" href="/TWDB/ressources/styles.css" />
+				<title>TWDB</title>
+				<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+				<script src="/TWDB/ressources/prototype.js" type="text/javascript"></script>
+				<script src="/TWDB/ressources/scriptaculous.js" type="text/javascript"></script>
+				<script type="text/javascript">
+					var pos = new Array();
+					var pays = new Array();
+					var markers = new Array();
+					var paysliens = new Array();
+					var cpt = 0;
+      				var map;
+      				function initialize(position, id_map) {
+        			var myOptions = {zoom: 5,
+          							 center: position,
+          							 mapTypeId: google.maps.MapTypeId.ROADMAP};
+        			map = new google.maps.Map(document.getElementById(id_map), myOptions);
+      				}
+      				
+      				google.maps.event.addListener(map, 'click', function(event) {
+    					placeMarker(event.latLng);
+  					});
+      				
+      				
+					function drop(infosEnabled) {
+    					for (var i = 0; i < pos.length; i++) {
+      						setTimeout(function() { 
+      							addMarker(infosEnabled);
+      							 }, i * 100);
+    					}
+  					}
+
+  					function addMarker(shouldSetInfos) {
+  						var m = new google.maps.Marker({
+      								position: pos[cpt],
+      								map: map,
+      								draggable: false,
+      								animation: google.maps.Animation.DROP,
+      								title: pays[cpt]});
+      					if (shouldSetInfos == 1) {
+      						var info = new google.maps.InfoWindow(
+      										{ content: "&lt;a href=" + paysliens[cpt] + ">infos&lt;/a>",
+        									  size: new google.maps.Size(50,50)
+      										});
+      						google.maps.event.addListener(m, 'click', function(event) {
+      												info.open(map, m);});
+      					}
+   	 					markers.push(m);
+    					cpt++;
+  					}
+  					
+  					function clickclear(thisfield) {
+						if (thisfield.value == "Recherche rapide") {
+							thisfield.value = "";
+						}
+					}
+					
+					function clickrecall(thisfield) {
+						if (thisfield.value == "") {
+							thisfield.value = "Recherche rapide";
+						}
+					}
+   				</script>
+			</head>
+			<body>
+				<div id="wrapper">
+
+					<!-- entete -->
+					<header class="titre">
+						<h1>TWDB</h1>
+						<h2>The World Database</h2>
+					</header>
+
+					<!-- barre de navigation -->
+					<nav>
+						<ul>
+							<li><a href="/TWDB/index.html">accueil</a></li>
+							<li><a href="/TWDB/country.html">liste des pays</a></li>
+							<li><a href="/TWDB/rechercher">recherche approfondie</a></li>
+							<li><a href="/TWDB/apropos">&agrave; propos</a></li>
+							<li>
+								<form id="quicksearch" action="/TWDB/search">
+										<input name="valeur" onKeyPress="return submitenter(this,event)"
+															 onclick ="clickclear(this)" 
+															 onblur="clickrecall(this)" 
+															 type="text" 
+															 id="search_term" 
+															 value="Recherche rapide"/>
+										<input name="xml" value="false" hidden="true" />
+									</form>
+							</li>
+						</ul>
+					</nav>
+
+					<!-- contenu -->
+					<section id="contenu">
+						<div id="autocomplete_suggestions" class="autocomplete"></div>
+						<%= contenu %>
+					</section>
+
+					<!-- bas de page -->
+					<footer>
+						<section>TWDB est un projet de M1 IFI sur les technologies xml - 2011</section>
+					</footer>
+				</div>
+				<script type="text/javascript">
+   					new Ajax.Autocompleter("search_term", "autocomplete_suggestions", "/TWDB/rechdyn", {paramName:"param", minChars:2});
+   					function submitenter(myfield,e)
+						{
+						 var keycode;
+						 if (window.event) keycode = window.event.keyCode;
+						 else if (e) keycode = e.which;
+						 else return true;
+						 if (keycode == 13)
+   							{
+   							 myfield.form.submit();
+   							 return false;
+   							}
+						else
+   							return true;
+					}
+					</script>
+			</body>
+		</html>
